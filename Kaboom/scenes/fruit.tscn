@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/graphics/spritesheet.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+resource_name = "fruit"
+script/source = "extends Area2D
+
+const SPEED = 50
+onready var sprite = $Sprite
+
+func _ready():
+	randomize()
+	sprite.frame = floor(rand_range(6, 11))
+	position.x = randi()%128
+
+func _process(delta):
+	position.y += SPEED * delta
+"
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 5.0
+
+[node name="Fruit" type="Area2D"]
+collision_mask = 0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 2
+frame = 6
